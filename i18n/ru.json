@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kitsune Solar"
+		]
+	},
+	"mw-ext-comments-desc": "Интеграция системы комментариев.",
+	"mw-ext-comments-error-category": "META:ERROR.EXT.Comments"
+}

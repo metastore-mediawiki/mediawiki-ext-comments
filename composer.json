@@ -1,0 +1,35 @@
+{
+	"name": "metastore-mediawiki/mediawiki-ext-comments",
+	"type": "mediawiki-extension",
+	"description": "Интеграция системы комментариев.",
+	"license": "GPL-3.0-or-later",
+	"homepage": "https://metastore.pro/",
+	"keywords": [
+		"mediawiki",
+		"comments"
+	],
+	"authors": [
+		{
+			"name": "Kitsune Solar",
+			"email": "kitsune.solar@gmail.com",
+			"homepage": "https://kitsune.solar/",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"email": "support@metastore.pro",
+		"issues": "https://gitlab.com/metastore/mediawiki/mediawiki-ext-comments/issues",
+		"forum": "https://webmasters.community",
+		"wiki": "https://webmasters.wiki",
+		"source": "https://gitlab.com/metastore/mediawiki/mediawiki-ext-comments"
+	},
+	"require": {
+		"php": ">=7.2",
+		"composer/installers": "1.*,>=1.0.1"
+	},
+	"autoload": {
+		"classmap": [
+			"MW_EXT_Comments.class.php"
+		]
+	}
+}

@@ -1,0 +1,52 @@
+{
+	"name": "MW_EXT_Comments",
+	"version": "1.0.0",
+	"author": [
+		"[https://kitsune.solar/ Kitsune Solar]",
+		"[https://metastore.pro/ METASTORE]",
+		"..."
+	],
+	"url": "https://metastore.pro/",
+	"descriptionmsg": "mw-ext-comments-desc",
+	"license-name": "[https://www.gnu.org/licenses/gpl-3.0.txt GPL-3.0]",
+	"type": "parserhook",
+	"require": {
+		"MediaWiki": ">= 1.30.0"
+	},
+	"AutoloadClasses": {
+		"MW_EXT_Comments": "MW_EXT_Comments.class.php"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": [
+			"MW_EXT_Comments::onParserFirstCallInit"
+		],
+		"BeforePageDisplay": [
+			"MW_EXT_Comments::onBeforePageDisplay"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"MW_EXT_CommentsMagic": "MW_EXT_Comments.i18n.magic.php"
+	},
+	"MessagesDirs": {
+		"MW_EXT_Comments": [
+			"i18n"
+		]
+	},
+	"ResourceModules": {
+		"ext.mw.comments.styles": {
+			"styles": [
+				"styles/theme.css"
+			],
+			"position": "top",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "modules",
+		"remoteExtPath": "MW_EXT_Comments/modules"
+	},
+	"manifest_version": 2
+}
