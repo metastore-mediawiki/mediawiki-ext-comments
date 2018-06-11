@@ -24,4 +24,4 @@ wfLoadExtension( 'MW_EXT_Comments' );
 ## Ссылки
 
 - [**METASTORE**](https://metastore.pro/) - хранилище открытых проектов [**METADATA**](https://metadata.foundation/).
-- [**METADATA / Foundation**](https://metadata.foundation/) - поддержка и разработка открытых проектов.
+- [**METADATA / FOUNDATION**](https://metadata.foundation/) - поддержка и разработка открытых проектов.
