@@ -11,7 +11,7 @@
 	"license-name": "[https://www.gnu.org/licenses/gpl-3.0.txt GPL-3.0]",
 	"type": "parserhook",
 	"require": {
-		"MediaWiki": ">= 1.30.0"
+		"MediaWiki": ">= 1.31.0"
 	},
 	"AutoloadClasses": {
 		"MediaWiki\\Extension\\MW_EXT_Comments\\MW_EXT_Comments": "MW_EXT_Comments.class.php"
