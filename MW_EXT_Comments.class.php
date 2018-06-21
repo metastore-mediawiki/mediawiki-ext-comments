@@ -1,9 +1,15 @@
 <?php
 
+namespace MediaWiki\Extension\MW_EXT_Comments;
+
+use Parser;
+use OutputPage;
+use Skin;
+use RequestContext;
+
 /**
  * Class MW_EXT_Comments
  * ------------------------------------------------------------------------------------------------------------------ */
-
 class MW_EXT_Comments {
 
 	/**
@@ -26,12 +32,12 @@ class MW_EXT_Comments {
 	 * @param $getData
 	 *
 	 * @return mixed
-	 * @throws ConfigException
+	 * @throws \ConfigException
 	 * -------------------------------------------------------------------------------------------------------------- */
 
 	private static function getConfig( $getData ) {
-		$context   = new RequestContext();
-		$getConfig = $context->getConfig()->get( $getData );
+		$context   = RequestContext::getMain()->getConfig();
+		$getConfig = $context->get( $getData );
 
 		return $getConfig;
 	}
@@ -39,10 +45,11 @@ class MW_EXT_Comments {
 	/**
 	 * Get `getTitle`.
 	 *
-	 * @return null|Title
+	 * @return null|\Title
 	 * -------------------------------------------------------------------------------------------------------------- */
+
 	private static function getTitle() {
-		$context  = new RequestContext();
+		$context  = RequestContext::getMain();
 		$getTitle = $context->getTitle();
 
 		return $getTitle;
@@ -54,7 +61,7 @@ class MW_EXT_Comments {
 	 * @param Parser $parser
 	 *
 	 * @return bool
-	 * @throws MWException
+	 * @throws \MWException
 	 * -------------------------------------------------------------------------------------------------------------- */
 
 	public static function onParserFirstCallInit( Parser $parser ) {
@@ -71,12 +78,12 @@ class MW_EXT_Comments {
 	 * @param string $id
 	 *
 	 * @return bool|string
-	 * @throws ConfigException
-	 * @throws MWException
+	 * @throws \ConfigException
+	 * @throws \MWException
 	 * -------------------------------------------------------------------------------------------------------------- */
 
 	public static function onRenderTag( Parser $parser, $type = '', $id = '' ) {
-		$context = new RequestContext();
+		$context = RequestContext::getMain();
 
 		// Argument: type.
 		$getType = self::clearData( $type ?? '' ?: '' );
@@ -118,7 +125,7 @@ class MW_EXT_Comments {
 			default:
 				$parser->addTrackingCategory( 'mw-ext-comments-error-category' );
 
-				return false;
+				return null;
 		}
 
 		// Out HTML.
@@ -137,18 +144,18 @@ class MW_EXT_Comments {
 	 * @param Skin $skin
 	 *
 	 * @return bool
-	 * @throws MWException
+	 * @throws \MWException
 	 * -------------------------------------------------------------------------------------------------------------- */
 
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
-		$context = new RequestContext();
+		$context = RequestContext::getMain();
 
 		if ( ! $context->getTitle() || ! $context->getTitle()->isContentPage() || ! $context->getWikiPage() ) {
-			return false;
+			return null;
 		}
 
 		$out->addHeadItem( 'mw-ext-comments-vk', '<script src="https://vk.com/js/api/openapi.js"></script>' );
-		$out->addModuleStyles( array( 'ext.mw.comments.styles' ) );
+		$out->addModuleStyles( [ 'ext.mw.comments.styles' ] );
 
 		return true;
 	}

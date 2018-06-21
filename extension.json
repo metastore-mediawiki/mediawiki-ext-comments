@@ -14,14 +14,14 @@
 		"MediaWiki": ">= 1.30.0"
 	},
 	"AutoloadClasses": {
-		"MW_EXT_Comments": "MW_EXT_Comments.class.php"
+		"MediaWiki\\Extension\\MW_EXT_Comments\\MW_EXT_Comments": "MW_EXT_Comments.class.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": [
-			"MW_EXT_Comments::onParserFirstCallInit"
+			"MediaWiki\\Extension\\MW_EXT_Comments\\MW_EXT_Comments::onParserFirstCallInit"
 		],
 		"BeforePageDisplay": [
-			"MW_EXT_Comments::onBeforePageDisplay"
+			"MediaWiki\\Extension\\MW_EXT_Comments\\MW_EXT_Comments::onBeforePageDisplay"
 		]
 	},
 	"ExtensionMessagesFiles": {
