@@ -29,15 +29,15 @@ class MW_EXT_Comments {
 	/**
 	 * Get configuration parameters.
 	 *
-	 * @param $getData
+	 * @param $config
 	 *
 	 * @return mixed
 	 * @throws \ConfigException
 	 * -------------------------------------------------------------------------------------------------------------- */
 
-	private static function getConfig( $getData ) {
+	private static function getConfig( $config ) {
 		$context   = RequestContext::getMain()->getConfig();
-		$getConfig = $context->get( $getData );
+		$getConfig = $context->get( $config );
 
 		return $getConfig;
 	}
