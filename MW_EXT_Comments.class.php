@@ -2,10 +2,10 @@
 
 namespace MediaWiki\Extension\MW_EXT_Comments;
 
-use Parser;
 use OutputPage;
-use Skin;
+use Parser;
 use RequestContext;
+use Skin;
 
 /**
  * Class MW_EXT_Comments
