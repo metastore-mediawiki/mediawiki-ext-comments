@@ -56,6 +56,20 @@ class MW_EXT_Comments {
 	}
 
 	/**
+	 * Get `getWikiPage`.
+	 *
+	 * @return \WikiPage
+	 * @throws \MWException
+	 * -------------------------------------------------------------------------------------------------------------- */
+
+	private static function getWikiPage() {
+		$context     = RequestContext::getMain();
+		$getWikiPage = $context->getWikiPage();
+
+		return $getWikiPage;
+	}
+
+	/**
 	 * Register tag function.
 	 *
 	 * @param Parser $parser
@@ -83,8 +97,6 @@ class MW_EXT_Comments {
 	 * -------------------------------------------------------------------------------------------------------------- */
 
 	public static function onRenderTag( Parser $parser, $type = '', $id = '' ) {
-		$context = RequestContext::getMain();
-
 		// Argument: type.
 		$getType = self::clearData( $type ?? '' ?: '' );
 
@@ -92,8 +104,8 @@ class MW_EXT_Comments {
 		$getID = self::clearData( $id ?? '' ?: '' );
 
 		// Check page status.
-		if ( ! $context->getTitle() || ! $context->getTitle()->isContentPage() || ! $context->getWikiPage() ) {
-			return false;
+		if ( ! self::getTitle() || ! self::getTitle()->isContentPage() || ! self::getWikiPage() ) {
+			return null;
 		}
 
 		switch ( $getType ) {
@@ -143,14 +155,12 @@ class MW_EXT_Comments {
 	 * @param OutputPage $out
 	 * @param Skin $skin
 	 *
-	 * @return bool
+	 * @return bool|null
 	 * @throws \MWException
 	 * -------------------------------------------------------------------------------------------------------------- */
 
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
-		$context = RequestContext::getMain();
-
-		if ( ! $context->getTitle() || ! $context->getTitle()->isContentPage() || ! $context->getWikiPage() ) {
+		if ( ! self::getTitle() || ! self::getTitle()->isContentPage() || ! self::getWikiPage() ) {
 			return null;
 		}
 
