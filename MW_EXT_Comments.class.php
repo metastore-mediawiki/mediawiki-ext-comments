@@ -2,69 +2,13 @@
 
 namespace MediaWiki\Extension\MW_EXT_Comments;
 
-use OutputPage, Parser, RequestContext, Skin;
+use OutputPage, Parser, Skin;
+use MediaWiki\Extension\MW_EXT_Core\MW_EXT_Core;
 
 /**
  * Class MW_EXT_Comments
  * ------------------------------------------------------------------------------------------------------------------ */
 class MW_EXT_Comments {
-
-	/**
-	 * Clear DATA (escape html).
-	 *
-	 * @param $string
-	 *
-	 * @return string
-	 * -------------------------------------------------------------------------------------------------------------- */
-
-	private static function clearData( $string ) {
-		$outString = htmlspecialchars( trim( $string ), ENT_QUOTES );
-
-		return $outString;
-	}
-
-	/**
-	 * Get configuration parameters.
-	 *
-	 * @param $config
-	 *
-	 * @return mixed
-	 * @throws \ConfigException
-	 * -------------------------------------------------------------------------------------------------------------- */
-
-	private static function getConfig( $config ) {
-		$context   = RequestContext::getMain()->getConfig();
-		$getConfig = $context->get( $config );
-
-		return $getConfig;
-	}
-
-	/**
-	 * Get `getTitle`.
-	 *
-	 * @return null|\Title
-	 * -------------------------------------------------------------------------------------------------------------- */
-
-	private static function getTitle() {
-		$context  = RequestContext::getMain();
-		$getTitle = $context->getTitle();
-
-		return $getTitle;
-	}
-
-	/**
-	 * Get `getWikiPage`.
-	 *
-	 * @return \WikiPage
-	 * @throws \MWException
-	 * -------------------------------------------------------------------------------------------------------------- */
-
-	private static function getWikiPage() {
-		$context     = RequestContext::getMain();
-		$getWikiPage = $context->getWikiPage();
-
-		return $getWikiPage;
-	}
 
 	/**
 	 * Register tag function.
@@ -95,22 +39,22 @@ class MW_EXT_Comments {
 
 	public static function onRenderTag( Parser $parser, $type = '', $id = '' ) {
 		// Argument: type.
-		$getType = self::clearData( $type ?? '' ?: '' );
+		$getType = MW_EXT_Core::outClear( $type ?? '' ?: '' );
 
 		// Argument: ID.
-		$getID = self::clearData( $id ?? '' ?: '' );
+		$getID = MW_EXT_Core::outClear( $id ?? '' ?: '' );
 
 		// Check page status.
-		if ( ! self::getTitle() || ! self::getTitle()->isContentPage() || ! self::getWikiPage() ) {
+		if ( ! MW_EXT_Core::getTitle() || ! MW_EXT_Core::getTitle()->isContentPage() || ! MW_EXT_Core::getWikiPage() ) {
 			return null;
 		}
 
 		switch ( $getType ) {
 			case 'disqus':
 				// Build data.
-				$siteURL = self::getConfig( 'Server' );
-				$pageURL = $siteURL . '/?curid=' . self::getTitle()->getArticleID();
-				$pageID  = self::getTitle()->getArticleID();
+				$siteURL = MW_EXT_Core::getConfig( 'Server' );
+				$pageURL = $siteURL . '/?curid=' . MW_EXT_Core::getTitle()->getArticleID();
+				$pageID  = MW_EXT_Core::getTitle()->getArticleID();
 
 				// Out type.
 				$outType = '<div id="disqus_thread"></div>';
@@ -122,9 +66,9 @@ class MW_EXT_Comments {
 				break;
 			case 'vk':
 				// Build data.
-				$siteURL = self::getConfig( 'Server' );
-				$pageURL = $siteURL . '/?curid=' . self::getTitle()->getArticleID();
-				$pageID  = self::getTitle()->getArticleID();
+				$siteURL = MW_EXT_Core::getConfig( 'Server' );
+				$pageURL = $siteURL . '/?curid=' . MW_EXT_Core::getTitle()->getArticleID();
+				$pageID  = MW_EXT_Core::getTitle()->getArticleID();
 
 				// Out type.
 				$outType = '<script>VK.init({apiId: ' . $getID . ', onlyWidgets: true});</script>';
@@ -157,7 +101,7 @@ class MW_EXT_Comments {
 	 * -------------------------------------------------------------------------------------------------------------- */
 
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
-		if ( ! self::getTitle() || ! self::getTitle()->isContentPage() || ! self::getWikiPage() ) {
+		if ( ! MW_EXT_Core::getTitle() || ! MW_EXT_Core::getTitle()->isContentPage() || ! MW_EXT_Core::getWikiPage() ) {
 			return null;
 		}
 
