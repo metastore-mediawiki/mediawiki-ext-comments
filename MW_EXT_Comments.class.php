@@ -82,7 +82,7 @@ class MW_EXT_Comments {
 		}
 
 		// Out HTML.
-		$outHTML = '<div class="mw-ext-comments">' . $outType . '</div>';
+		$outHTML = '<div class="mw-ext-comments navigation-not-searchable">' . $outType . '</div>';
 
 		// Out parser.
 		$outParser = $parser->insertStripItem( $outHTML, $parser->mStripState );
