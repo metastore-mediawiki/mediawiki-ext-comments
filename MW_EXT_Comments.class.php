@@ -20,7 +20,7 @@ class MW_EXT_Comments {
 	 * -------------------------------------------------------------------------------------------------------------- */
 
 	public static function onParserFirstCallInit( Parser $parser ) {
-		$parser->setFunctionHook( 'comments', __CLASS__ . '::onRenderTag' );
+		$parser->setFunctionHook( 'comments', [ __CLASS__, 'onRenderTag' ] );
 
 		return true;
 	}
@@ -41,7 +41,7 @@ class MW_EXT_Comments {
 		// Argument: type.
 		$getType = MW_EXT_Core::outClear( $type ?? '' ?: '' );
 
-		// Argument: ID.
+		// Argument: id.
 		$getID = MW_EXT_Core::outClear( $id ?? '' ?: '' );
 
 		// Check page status.
