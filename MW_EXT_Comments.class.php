@@ -7,7 +7,7 @@ use MediaWiki\Extension\MW_EXT_Core\MW_EXT_Core;
 
 /**
  * Class MW_EXT_Comments
- * ------------------------------------------------------------------------------------------------------------------ */
+ */
 class MW_EXT_Comments {
 
 	/**
@@ -17,8 +17,7 @@ class MW_EXT_Comments {
 	 *
 	 * @return bool
 	 * @throws \MWException
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public static function onParserFirstCallInit( Parser $parser ) {
 		$parser->setFunctionHook( 'comments', [ __CLASS__, 'onRenderTag' ] );
 
@@ -35,8 +34,7 @@ class MW_EXT_Comments {
 	 * @return bool|string
 	 * @throws \ConfigException
 	 * @throws \MWException
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public static function onRenderTag( Parser $parser, $type = '', $id = '' ) {
 		// Argument: type.
 		$getType = MW_EXT_Core::outClear( $type ?? '' ?: '' );
@@ -98,8 +96,7 @@ class MW_EXT_Comments {
 	 *
 	 * @return bool|null
 	 * @throws \MWException
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
 		if ( ! MW_EXT_Core::getTitle() || ! MW_EXT_Core::getTitle()->isContentPage() || ! MW_EXT_Core::getWikiPage() ) {
 			return null;
