@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\MW_EXT_Comments;
 
 use OutputPage, Parser, Skin;
-use MediaWiki\Extension\MW_EXT_Core\MW_EXT_Core;
+use MediaWiki\Extension\MW_EXT_Kernel\MW_EXT_Kernel;
 
 /**
  * Class MW_EXT_Comments
@@ -37,22 +37,22 @@ class MW_EXT_Comments {
 	 */
 	public static function onRenderTag( Parser $parser, $type = '', $id = '' ) {
 		// Argument: type.
-		$getType = MW_EXT_Core::outClear( $type ?? '' ?: '' );
+		$getType = MW_EXT_Kernel::outClear( $type ?? '' ?: '' );
 
 		// Argument: id.
-		$getID = MW_EXT_Core::outClear( $id ?? '' ?: '' );
+		$getID = MW_EXT_Kernel::outClear( $id ?? '' ?: '' );
 
 		// Check page status.
-		if ( ! MW_EXT_Core::getTitle() || ! MW_EXT_Core::getTitle()->isContentPage() || ! MW_EXT_Core::getWikiPage() ) {
+		if ( ! MW_EXT_Kernel::getTitle() || ! MW_EXT_Kernel::getTitle()->isContentPage() || ! MW_EXT_Kernel::getWikiPage() ) {
 			return null;
 		}
 
 		switch ( $getType ) {
 			case 'disqus':
 				// Build data.
-				$siteURL = MW_EXT_Core::getConfig( 'Server' );
-				$pageURL = $siteURL . '/?curid=' . MW_EXT_Core::getTitle()->getArticleID();
-				$pageID  = MW_EXT_Core::getTitle()->getArticleID();
+				$siteURL = MW_EXT_Kernel::getConfig( 'Server' );
+				$pageURL = $siteURL . '/?curid=' . MW_EXT_Kernel::getTitle()->getArticleID();
+				$pageID  = MW_EXT_Kernel::getTitle()->getArticleID();
 
 				// Out type.
 				$outType = '<div id="disqus_thread"></div>';
@@ -64,9 +64,9 @@ class MW_EXT_Comments {
 				break;
 			case 'vk':
 				// Build data.
-				$siteURL = MW_EXT_Core::getConfig( 'Server' );
-				$pageURL = $siteURL . '/?curid=' . MW_EXT_Core::getTitle()->getArticleID();
-				$pageID  = MW_EXT_Core::getTitle()->getArticleID();
+				$siteURL = MW_EXT_Kernel::getConfig( 'Server' );
+				$pageURL = $siteURL . '/?curid=' . MW_EXT_Kernel::getTitle()->getArticleID();
+				$pageID  = MW_EXT_Kernel::getTitle()->getArticleID();
 
 				// Out type.
 				$outType = '<script>VK.init({apiId: ' . $getID . ', onlyWidgets: true});</script>';
@@ -98,7 +98,7 @@ class MW_EXT_Comments {
 	 * @throws \MWException
 	 */
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
-		if ( ! MW_EXT_Core::getTitle() || ! MW_EXT_Core::getTitle()->isContentPage() || ! MW_EXT_Core::getWikiPage() ) {
+		if ( ! MW_EXT_Kernel::getTitle() || ! MW_EXT_Kernel::getTitle()->isContentPage() || ! MW_EXT_Kernel::getWikiPage() ) {
 			return null;
 		}
 
